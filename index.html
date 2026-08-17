@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Academic Planner</title>
+
+    <style>
+/* ==========================================
+   ACADEMIC PLANNER
+========================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f5f9fd;
+    color: #000f22;
+    min-height: 100vh;
+}
+
+/* CABEÇALHO */
+
+header {
+    background: linear-gradient(135deg, #000f22, #082747);
+    color: white;
+    padding: 45px 25px 50px;
+    border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    box-shadow: 0 10px 30px rgba(0, 15, 34, 0.15);
+}
+
+.cabecalho {
+    max-width: 950px;
+    margin: auto;
+}
+
+.saudacao {
+    color: #c0e6fd;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+header h1 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 40px;
+    margin-bottom: 8px;
+}
+
+#dataAtual {
+    color: #dceeff;
+    font-size: 14px;
+}
+
+/* CONTEÚDO */
+
+main {
+    width: 100%;
+    max-width: 950px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* RESUMO */
+
+.resumo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.resumo-card {
+    background: white;
+    border: 1px solid #e1edf6;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 15, 34, 0.06);
+}
+
+.resumo-card span {
+    display: block;
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+.resumo-card strong {
+    display: block;
+    color: #000f22;
+    font-size: 26px;
+}
+
+.resumo-card p {
+    color: #718096;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+/* CARDS */
+
+.formulario,
+.atividades {
+    background: white;
+    padding: 28px;
+    border-radius: 22px;
+    margin-bottom: 22px;
+    border: 1px solid #e1edf6;
+    box-shadow: 0 10px 30px rgba(0, 15, 34, 0.055);
+}
+
+h2 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    color: #000f22;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+/* INPUTS */
+
+input {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+
+    border: 1px solid #d8e5ef;
+    border-radius: 11px;
+
+    background: #f8fbfe;
+    color: #000f22;
+
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+
+    transition: .2s;
+}
+
+input:focus {
+    border-color: #7dbce5;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(192, 230, 253, .35);
+}
+
+/* BOTÃO */
+
+.formulario button {
+    width: 100%;
+    padding: 14px;
+
+    border: none;
+    border-radius: 11px;
+
+    background: #000f22;
+    color: white;
+
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+
+    cursor: pointer;
+    transition: .2s;
+}
+
+.formulario button:hover {
+    background: #082747;
+    transform: translateY(-2px);
+}
+
+/* ATIVIDADES */
+
+.atividade {
+    position: relative;
+
+    background: #fbfdff;
+    border: 1px solid #e1edf6;
+
+    padding: 20px 20px 20px 23px;
+    border-radius: 16px;
+
+    margin-bottom: 14px;
+
+    transition: .2s;
+}
+
+.atividade::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #c0e6fd;
+    border-radius: 10px;
+}
+
+.atividade:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(0, 15, 34, .07);
+}
+
+.atividade h3 {
+    color: #000f22;
+    font-size: 17px;
+    margin-bottom: 7px;
+}
+
+.atividade p {
+    color: #647487;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.atividade strong {
+    display: inline-block;
+    color: #082747;
+    font-size: 13px;
+    margin-top: 7px;
+}
+
+.atividade button {
+    border: none;
+    padding: 9px 13px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.atividade button:first-of-type {
+    background: #e3f3fc;
+    color: #000f22;
+}
+
+.atividade button:last-of-type {
+    background: #000f22;
+    color: white;
+}
+
+.atividade button:hover {
+    opacity: .85;
+}
+/* ==========================================
+   STATUS DAS ATIVIDADES
+========================================== */
+
+.status {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 11px !important;
+
+    font-weight: 700;
+
+    margin-top: 7px;
+}
+
+.status.hoje {
+    background: #ffe5e5;
+
+    color: #a32d2d;
+}
+
+.status.amanha {
+    background: #fff2d8;
+
+    color: #946200;
+}
+
+.status.futuro {
+    background: #e3f3fc;
+
+    color: #286080;
+}
+
+.status.atrasada {
+    background: #fce4e4;
+
+    color: #a51d1d;
+}
+
+.origem-ava {
+    display: inline-block;
+
+    margin-top: 12px;
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    background: #eef8fd;
+
+    color: #39789d;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .3px;
+}
+.atividade:has(.status.hoje) {
+    border-color: #ffd1d1;
+    background: #fffafa;
+}
+
+.atividade:has(.status.atrasada) {
+    border-color: #ffd5d5;
+    background: #fffafa;
+}
+
+.atividade:has(.status.amanha) {
+    border-color: #f5e2b9;
+    background: #fffdf7;
+}
+/* CELULAR */
+/* ==========================================
+   SINCRONIZAÇÃO AVA
+========================================== */
+
+.sincronizacao {
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f0f9ff 100%
+    );
+
+    border: 1px solid #dcecf6;
+
+    border-radius: 22px;
+
+    padding: 25px 28px;
+
+    margin-bottom: 22px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 15, 34, 0.055);
+}
+
+.sincronizacao-conteudo {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.eyebrow {
+    display: inline-block;
+
+    color: #4b8bb5;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+
+    margin-bottom: 7px;
+}
+
+.sincronizacao h2 {
+    margin-bottom: 7px;
+}
+
+.sincronizacao h2::after {
+    display: none;
+}
+
+.sincronizacao p {
+    color: #718096;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+.botao-atualizar {
+    flex-shrink: 0;
+
+    border: none;
+
+    background: #c0e6fd;
+
+    color: #000f22;
+
+    padding: 12px 17px;
+
+    border-radius: 11px;
+
+    font-family: 'DM Sans', sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.botao-atualizar:hover {
+    background: #a9dafa;
+
+    transform: translateY(-2px);
+}
+
+}
+@media (max-width: 400px) {
+
+    header h1 {
+        font-size: 28px;
+    }
+
+    .resumo-card strong {
+        font-size: 20px;
+    }
+
+    .resumo-card p {
+        font-size: 10px;
+    }
+}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+
+        <div class="cabecalho">
+
+            <div>
+                <p class="saudacao">Vamos deixar tudo em dia, Victoria? ♡</p>
+
+                <h1>Planner Acadêmico</h1>
+
+                <p id="dataAtual"></p>
+            </div>
+
+        </div>
+
+    @media (max-width: 700px) {
+
+    header {
+        padding: 35px 20px 40px;
+        border-bottom-left-radius: 28px;
+        border-bottom-right-radius: 28px;
+    }
+
+    header h1 {
+        font-size: 31px;
+    }
+
+    main {
+        margin-top: 22px;
+        padding: 0 13px;
+    }
+
+    .resumo {
+        gap: 9px;
+    }
+
+    .resumo-card {
+        padding: 15px 8px;
+        border-radius: 15px;
+    }
+
+    .resumo-card span {
+        font-size: 20px;
+    }
+
+    .resumo-card strong {
+        font-size: 22px;
+    }
+
+    .resumo-card p {
+        font-size: 11px;
+    }
+
+    .formulario,
+    .atividades {
+        padding: 20px;
+        border-radius: 18px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+    
+                <span>📚</span>
+                <strong id="totalAtividades">0</strong>
+                <p>Pendentes</p>
+            </div>
+
+            <div class="resumo-card">
+                <span>🚨</span>
+                <strong id="venceHoje">0</strong>
+                <p>Vence hoje</p>
+            </div>
+
+            <div class="resumo-card">
+                <span>🗓️</span>
+                <strong id="estaSemana">0</strong>
+                <p>Esta semana</p>
+            </div>
+
+        </section>
+
+
+        <section class="sincronizacao">
+
+    <div class="sincronizacao-conteudo">
+
+        <div>
+            <span class="eyebrow">Colossenses 3:23: "Tudo o que fizerem, façam de todo o coração, como para o Senhor, e não para os homens".</span>
+
+            <h2>MINHAS ATIVIDADES </h2>
+
+            <p>
+                Suas atividades são sincronizadas automaticamente
+                com o AVA da UNIVESP.
+            </p>
+        </div>
+
+        <button
+            class="botao-atualizar"
+            onclick="carregarAtividadesDoAVA()"
+        >
+            ↻ Atualizar atividades
+        </button>
+
+    </div>
+
+</section>
+
+        <section class="formulario">
+
+            <h2>New assignment ♡</h2>
+
+            <input
+                type="text"
+                id="materia"
+                placeholder="Subject"
+            >
+
+            <input
+                type="text"
+                id="atividade"
+                placeholder="Assignment"
+            >
+
+            <input
+                type="date"
+                id="data"
+            >
+
+            <button onclick="adicionarAtividade()">
+                + Add assignment
+            </button>
+
+        </section>
+
+
+        <!-- ATIVIDADES -->
+
+        <section class="atividades">
+            
+
+            <div class="titulo-atividades">
+
+                <h2>My assignments</h2>
+
+            </div>
+
+            <div id="listaAtividades">
+
+                <p>Nenhuma atividade cadastrada ainda.</p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

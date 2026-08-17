@@ -1,0 +1,338 @@
+:root {
+    --bg: #f4f7fb;
+    --panel: #ffffff;
+    --primary: #4f46e5;
+    --primary-dark: #3730a3;
+    --accent: #f97316;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --border: #e5e7eb;
+    --shadow: 0 12px 28px rgba(79, 70, 229, 0.12);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(180deg, #eef2ff 0%, var(--bg) 100%);
+    color: var(--text);
+}
+
+header {
+    text-align: center;
+    padding: 2rem 1rem 1rem;
+    background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(79, 70, 229, 0.18);
+}
+
+header h1 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+}
+
+header p {
+    margin: 0.75rem 0 0;
+    font-size: 1.05rem;
+    opacity: 0.95;
+}
+
+main {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem 2rem;
+    display: grid;
+    grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+    gap: 1.5rem;
+}
+
+.formulario,
+.atividades {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+input {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    margin-bottom: 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 1rem;
+    background: #fff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 20px rgba(79, 70, 229, 0.18);
+}
+
+.lista-atividades {
+    display: grid;
+    gap: 1rem;
+}
+
+.atividade {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    background: #f9fafb;
+}
+
+.atividade.em-dia {
+    border-left: 6px solid var(--success);
+}
+
+.atividade.proxima {
+    border-left: 6px solid var(--warning);
+}
+
+.atividade.hoje {
+    border-left: 6px solid var(--accent);
+}
+
+.atividade.atrasada {
+    border-left: 6px solid var(--danger);
+}
+
+.atividade-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 1;
+}
+
+.materia {
+    font-weight: 700;
+    color: var(--primary-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.78rem;
+}
+
+.nome-atividade {
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.data-atividade {
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 88px;
+    padding: 0.45rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: rgba(79, 70, 229, 0.12);
+    color: var(--primary-dark);
+}
+
+.atividade.em-dia .badge {
+    background: rgba(16, 185, 129, 0.12);
+    color: #047857;
+}
+
+.atividade.proxima .badge {
+    background: rgba(245, 158, 11, 0.12);
+    color: #b45309;
+}
+
+.atividade.hoje .badge {
+    background: rgba(249, 115, 22, 0.12);
+    color: #c2410c;
+}
+
+.atividade.atrasada .badge {
+    background: rgba(239, 68, 68, 0.12);
+    color: #b91c1c;
+}
+
+.remover {
+    width: auto;
+    padding: 0.6rem 0.9rem;
+    border-radius: 8px;
+    background: #fee2e2;
+    color: #b91c1c;
+    font-weight: 700;
+}
+
+.empty {
+    margin: 0;
+    color: var(--muted);
+    text-align: center;
+    padding: 1rem;
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    background: #f9fafb;
+}
+
+@media (max-width: 760px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+
+    .atividade {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .atividade > div:last-child {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+}
+/* DASHBOARD */
+
+.cabecalho {
+    max-width: 900px;
+    margin: auto;
+    text-align: left;
+}
+
+.saudacao {
+    font-size: 14px;
+    color: #b9c9dc;
+    margin-bottom: 8px;
+}
+
+#dataAtual {
+    color: #b9c9dc;
+    font-size: 13px;
+}
+
+
+/* RESUMO */
+
+.resumo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+
+    margin-bottom: 25px;
+}
+
+.resumo-card {
+    background: white;
+
+    border: 1px solid #e5e9f0;
+    border-radius: 18px;
+
+    padding: 22px;
+
+    text-align: center;
+
+    box-shadow: 0 8px 25px rgba(11, 31, 58, 0.05);
+}
+
+.resumo-card span {
+    font-size: 20px;
+}
+
+.resumo-card strong {
+    display: block;
+
+    font-family: 'Playfair Display', serif;
+
+    font-size: 30px;
+
+    color: #0b1f3a;
+
+    margin-top: 5px;
+}
+
+.resumo-card p {
+    font-size: 12px;
+
+    color: #6b7280;
+
+    margin-top: 3px;
+}
+
+
+/* TÍTULO */
+
+.titulo-atividades {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* CELULAR */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 0;
+    }
+
+    header {
+        border-radius: 0 0 25px 25px;
+        padding: 35px 20px;
+    }
+
+    main {
+        padding: 0 15px;
+        margin-top: 25px;
+    }
+
+    .resumo {
+        grid-template-columns: 1fr;
+    }
+
+    .formulario,
+    .atividades {
+        padding: 20px;
+    }
+
+}
